@@ -98,9 +98,7 @@ public class OpenMap extends AppCompatActivity {
                 myLocation.setText("当前位置信息："+location.getProvince()+","+location.getCity()+","+location.getDistrict()+","+location.getStreet());
                // Toast.makeText(getApplicationContext(),location.getLatitude()+","+location.getAltitude(),Toast.LENGTH_LONG).show();
             }
-            else {
-                Toast.makeText(getApplicationContext(),"定位失败，权限不足或者网络较差.",Toast.LENGTH_LONG).show();
-            }
+
         }
     }
     public void navigateTo(BDLocation location){

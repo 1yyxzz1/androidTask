@@ -21,6 +21,7 @@ public class HomepageFragment extends Fragment {
 
     private HomepageViewModel mViewModel;
     private RecyclerView mRvMain;
+    private MyAdapter myAdapter;
 
     public static HomepageFragment newInstance() {
         return new HomepageFragment();
@@ -38,12 +39,19 @@ public class HomepageFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
         mRvMain=(RecyclerView) getView().findViewById(R.id.rv_main);
         mRvMain.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
-        mRvMain.setAdapter(new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+        /*mRvMain.setAdapter(new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
             @Override
             public void onClick(int pos) {
                 Toast.makeText(getActivity(),"click:"+pos,Toast.LENGTH_SHORT).show();
             }
-        }));
+        }));*/
+        myAdapter=new MyAdapter(getActivity(), new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int pos) {
+                Toast.makeText(getActivity(),"click:"+pos,Toast.LENGTH_SHORT).show();
+            }
+        });
+        mRvMain.setAdapter(myAdapter);
         // TODO: Use the ViewModel
     }
 
