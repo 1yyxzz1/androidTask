@@ -47,7 +47,7 @@
 
         <activity android:name="com.example.AndroidTask.MainFram.EnterMainFram" android:label="@string/news_name"/>
         <activity android:name="com.example.AndroidTask.EnterFram.RegisterActivity" android:label="@string/register_name"/>
-        <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.CameraActivity" android:label="@string/camera_name"/> CameraActivity
+        <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.CameraActivity" android:label="@string/camera_name"/>
         <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap" android:label="@string/map_name"/>
 
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
