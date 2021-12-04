@@ -87,7 +87,19 @@ public class TakephotoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.takephoto_fragment, container, false);
+        //避免切换Fragment 的时候重绘UI 。失去数据
+        if (TakephotoViewModel.view == null) {
+            //System.out.println(1);
+            TakephotoViewModel.view = inflater.inflate(R.layout.takephoto_fragment, null);
+        }
+        // 缓存的viewiew需要判断是否已经被加过parent，
+        // 如果有parent需要从parent删除，要不然会发生这个view已经有parent的错误。
+        ViewGroup parent = (ViewGroup) TakephotoViewModel.view.getParent();
+        if (parent != null) {
+            parent.removeView(TakephotoViewModel.view);
+        }
+
+        return TakephotoViewModel.view;
     }
 
     @Override
