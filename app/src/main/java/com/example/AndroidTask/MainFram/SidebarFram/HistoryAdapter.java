@@ -55,7 +55,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemHold
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder {
-
+        
         public TextView tv_problem;
         public TextView tv_pro_content;
         public TextView tv_datetime;
