@@ -37,7 +37,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="33mxgk9oGRvYUIKCM475AZHmBh2Ns2tt" />
 
-        <activity android:name="com.example.AndroidTask.EnterFram.Login" android:label="@string/login_name">
+        <activity android:exported="true" android:name="com.example.AndroidTask.EnterFram.Login" android:label="@string/login_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,8 +47,9 @@
 
         <activity android:name="com.example.AndroidTask.MainFram.EnterMainFram" android:label="@string/news_name"/>
         <activity android:name="com.example.AndroidTask.EnterFram.RegisterActivity" android:label="@string/register_name"/>
-        <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.CameraActivity" android:label="@string/camera_name"/>
+        <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.CameraActivity" android:label="@string/camera_name"/> CameraActivity
         <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap" android:label="@string/map_name"/>
+        <activity android:name="com.example.AndroidTask.MainFram.SidebarFram.HistoryActivity" android:label="历史记录界面"/>
 
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
     </application>

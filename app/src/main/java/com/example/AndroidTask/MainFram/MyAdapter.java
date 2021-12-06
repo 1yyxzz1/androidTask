@@ -50,23 +50,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
     private Context mContext;
     private OnItemClickListener mListener;
     private String content;
-    private int num;
+    private int num=0;
     private News[] news=new News[100];
     private Bitmap bmp;
     private MyAdapter.LinearViewHolder mainholder;
 
     public MyAdapter(Context context, OnItemClickListener listener){
-        this.num=0;
         this.mContext=context;
         this.mListener=listener;
         content=getConnect();
         getNews();
         System.out.println("content:"+content);
-        for (int i=0;i<num;i++){
-            System.out.println("i:"+i);
-            onBindViewHolder(mainholder,i);
-        }
-
     }
 
     @Override
@@ -75,10 +69,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
         return new LinearViewHolder(LayoutInflater.from(mContext).inflate(R.layout.homepage_fragment_recycleitem,parent,false));//传入view，即每一个item长什么样的布局
     }
 
-    //@Override
-    public void onBindViewHolder(MyAdapter.LinearViewHolder holder,int position) {
-        System.out.println("position:"+position);
-        position=holder.getAdapterPosition();
+    @Override
+    public void onBindViewHolder(MyAdapter.LinearViewHolder holder, final int position) {
         mainholder=holder;
         holder.title.setText(news[position].getTitle());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
@@ -101,13 +93,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
         //loadImageFromNetwork(news[position].getImageUrL());
         //holder.imag.setImageBitmap(bmp);
         //holder.imag.setImageResource(R.drawable.news_picture);
-        /*
+
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onClick(position);
             }
-        });*/
+        });
     }
 
     public void setImage(final MyAdapter.LinearViewHolder holder, final String str){
@@ -223,7 +215,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
             return e.toString();
         }
     }
-
+    /*
     private void getNum(){
         new Thread(){
             @Override
@@ -239,7 +231,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
                 }
             }
         }.start();
-    }
+    }*/
     /*
     public Bitmap getBitmap(String s)
     {

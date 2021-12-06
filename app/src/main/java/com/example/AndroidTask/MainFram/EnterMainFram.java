@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.AndroidTask.EnterFram.Login;
 import com.example.AndroidTask.Database.SPSave;
+import com.example.AndroidTask.MainFram.SidebarFram.HistoryActivity;
 import com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap;
 import com.example.cq_1014_task.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,12 +29,14 @@ public class EnterMainFram extends AppCompatActivity {
     private RecyclerView mRvMain;
     private PageEnabledSlidingPaneLayout slidingPaneLayout;
     private Button EXIT;
+    private TextView HISTORY;
     int ReturnLocation=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_main_activity);
         EXIT=(Button) findViewById(R.id.sidebar_exit);
+        HISTORY = (TextView) findViewById(R.id.sidebar_history);
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomnavigationview);
         NavController navController= Navigation.findNavController(this,R.id.fragment2);
         AppBarConfiguration configuration=new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
@@ -47,6 +50,7 @@ public class EnterMainFram extends AppCompatActivity {
     private void setListeners(){
         EnterMainFram.OnClick onClick=new EnterMainFram.OnClick();
         EXIT.setOnClickListener(onClick);
+        HISTORY.setOnClickListener(onClick);
         /*mBtnZc.setOnClickListener(onClick);
         mBtnDenglu.setOnClickListener(onClick);*/
     }
@@ -75,6 +79,7 @@ public class EnterMainFram extends AppCompatActivity {
             }
         });
     }
+
     private class OnClick implements View.OnClickListener {
 
         @Override
@@ -85,6 +90,11 @@ public class EnterMainFram extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"退出成功",Toast.LENGTH_SHORT).show();
                     SPSave.deleteAll(getApplicationContext());
                     intent=new Intent(EnterMainFram.this, Login.class);
+                    break;
+                case R.id.sidebar_history:
+                    intent=new Intent(EnterMainFram.this, HistoryActivity.class);
+                    break;
+                default:
             }
             finish();
             startActivity(intent);
