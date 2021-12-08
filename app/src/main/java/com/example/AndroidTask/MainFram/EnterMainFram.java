@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.example.AndroidTask.EnterFram.Login;
 import com.example.AndroidTask.Database.SPSave;
+import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
 import com.example.AndroidTask.MainFram.SidebarFram.HistoryActivity;
-import com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap;
 import com.example.cq_1014_task.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,6 +30,7 @@ public class EnterMainFram extends AppCompatActivity {
     private PageEnabledSlidingPaneLayout slidingPaneLayout;
     private Button EXIT;
     private TextView HISTORY;
+    private TextView COLLECTION;
     int ReturnLocation=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class EnterMainFram extends AppCompatActivity {
         setContentView(R.layout.app_main_activity);
         EXIT=(Button) findViewById(R.id.sidebar_exit);
         HISTORY = (TextView) findViewById(R.id.sidebar_history);
+        COLLECTION = (TextView) findViewById(R.id.sidebar_collection);
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomnavigationview);
         NavController navController= Navigation.findNavController(this,R.id.fragment2);
         AppBarConfiguration configuration=new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
@@ -51,6 +53,7 @@ public class EnterMainFram extends AppCompatActivity {
         EnterMainFram.OnClick onClick=new EnterMainFram.OnClick();
         EXIT.setOnClickListener(onClick);
         HISTORY.setOnClickListener(onClick);
+        COLLECTION.setOnClickListener(onClick);
         /*mBtnZc.setOnClickListener(onClick);
         mBtnDenglu.setOnClickListener(onClick);*/
     }

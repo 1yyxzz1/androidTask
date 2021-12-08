@@ -1,28 +1,20 @@
 package com.example.AndroidTask.MainFram.SidebarFram;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.AndroidTask.Database.SPSave;
-import com.example.AndroidTask.EnterFram.Login;
+import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
 import com.example.AndroidTask.MainFram.EnterMainFram;
-import com.example.AndroidTask.MainFram.MyAdapter;
+import com.example.AndroidTask.MainFram.EvaluateFram.EvaluateActivity;
 import com.example.cq_1014_task.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -58,7 +50,16 @@ public class HistoryActivity extends AppCompatActivity {
             datelist.add(historys[i]);
         }
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:   //返回键的id
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +67,13 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         RecyclerView recyclerView = findViewById(R.id.rv_history);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this,datelist);
         recyclerView.setAdapter(historyAdapter);
         historyAdapter.setOnItemClickListener(new HistoryAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, HistoryAdapter.ViewName viewName, int position) {
+                Intent intent = null;
                 switch (viewName){
                     case ITEM:
                         break;
@@ -79,16 +81,17 @@ public class HistoryActivity extends AppCompatActivity {
                         //进入查看进度界面
                         //test code
                         //Log.println(100,"CHECK_SCHEDULE",position+":查看进度");
-
-                        //insert code
-
+                        intent=new Intent(HistoryActivity.this, Process_Activity.class);
+                        startActivity(intent);
                         break;
+                        //insert code
                     case EVALUATE:
                         //进入我要评价界面
                         //Log.println(100,"EVALUATE",position+":我要评价");
 
                         //insert code
-
+                        intent=new Intent(HistoryActivity.this, EvaluateActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
