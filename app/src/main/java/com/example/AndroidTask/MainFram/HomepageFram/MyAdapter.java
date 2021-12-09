@@ -3,6 +3,7 @@ package com.example.AndroidTask.MainFram.HomepageFram;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,8 +106,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
                     InputStream is = conn.getInputStream();
                     BitmapFactory.Options options=new BitmapFactory.Options();
                     options.inSampleSize = 10;
-                    bmp = BitmapFactory.decodeStream(is,null,options);//bitmap压缩，使其可以被载入
-
+                    bmp = BitmapFactory.decodeStream(is);//bitmap压缩，使其可以被载入
+                    Matrix matrix=new Matrix();
+                    matrix.setScale(0.2f,0.25f);
+                    bmp=Bitmap.createBitmap(bmp,0,0,bmp.getWidth(),bmp.getHeight(),matrix,true);
+                    is.close();
                     // 该线程的结果，再返回，操作ＵＩ线程
                     holder.imag.post(new Runnable() {
                         @Override
