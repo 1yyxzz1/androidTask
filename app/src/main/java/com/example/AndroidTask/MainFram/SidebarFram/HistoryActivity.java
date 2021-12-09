@@ -1,78 +1,65 @@
 package com.example.AndroidTask.MainFram.SidebarFram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
-import com.example.AndroidTask.MainFram.EvaluateFram.EvaluateActivity;
+import com.example.AndroidTask.Database.SPSave;
+import com.example.AndroidTask.EnterFram.Login;
+import com.example.AndroidTask.JsonTool.ParseJson;
 import com.example.cq_1014_task.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    //private Historys[] historys;//存储通过网络编程获取的数据
-
-    //test code
     private ArrayList<Historys> datelist = new ArrayList<Historys>();
-    private Historys[] historys = new Historys[]{
-            new Historys(20,"http://42.194.213.29:5999/images/2021-05-24/feeeb0349d05494f82d0c304e38fdad0.jpg",
-            "快递中心门口井盖没盖！","前面的路上有井盖没盖好！大家注意绕行！！","test",
-        "{\"address\":\"福建省福州市闽侯县学府南路96路靠近博学苑B区\",\"city\":\"福州市\",\"latitude\":26.049758,\"longitude\":119.19259}",
-            "安全隐患",1,"2021-05-24T01:42:31.000+00:00","处理完成"),
-        new Historys(20,"http://42.194.213.29:5999/images/2021-05-24/feeeb0349d05494f82d0c304e38fdad0.jpg",
-        "快递中心门口井盖没盖！","前面的路上有井盖没盖好！大家注意绕行！！","test",
-        "{\"address\":\"福建省福州市闽侯县学府南路96路靠近博学苑B区\",\"city\":\"福州市\",\"latitude\":26.049758,\"longitude\":119.19259}",
-        "安全隐患",1,"2021-05-24T01:42:31.000+00:00","处理完成"),
-            new Historys(20,"http://42.194.213.29:5999/images/2021-05-24/feeeb0349d05494f82d0c304e38fdad0.jpg",
-                    "快递中心门口井盖没盖！","前面的路上有井盖没盖好！大家注意绕行！！","test",
-                    "{\"address\":\"福建省福州市闽侯县学府南路96路靠近博学苑B区\",\"city\":\"福州市\",\"latitude\":26.049758,\"longitude\":119.19259}",
-                    "安全隐患",1,"2021-05-24T01:42:31.000+00:00","处理完成"),
-            new Historys(20,"http://42.194.213.29:5999/images/2021-05-24/feeeb0349d05494f82d0c304e38fdad0.jpg",
-                    "快递中心门口井盖没盖！","前面的路上有井盖没盖好！大家注意绕行！！","test",
-                    "{\"address\":\"福建省福州市闽侯县学府南路96路靠近博学苑B区\",\"city\":\"福州市\",\"latitude\":26.049758,\"longitude\":119.19259}",
-                    "安全隐患",1,"2021-05-24T01:42:31.000+00:00","处理完成"),
-            new Historys(20,"http://42.194.213.29:5999/images/2021-05-24/feeeb0349d05494f82d0c304e38fdad0.jpg",
-                    "快递中心门口井盖没盖！","前面的路上有井盖没盖好！大家注意绕行！！","test",
-                    "{\"address\":\"福建省福州市闽侯县学府南路96路靠近博学苑B区\",\"city\":\"福州市\",\"latitude\":26.049758,\"longitude\":119.19259}",
-                    "安全隐患",1,"2021-05-24T01:42:31.000+00:00","处理完成")
-    };
+    private String account;
 
+    //初始化数据列表datelist
     private void initList(){
-        for(int i = 0;i != historys.length;i++){
-            datelist.add(historys[i]);
+//        for(int i = 0;i != historys.length;i++){
+//            datelist.add(historys[i]);
+//        }
+        ParseJson parseJson = new ParseJson("Historys",account);//工具初始化
+        parseJson.getJsonFromInternet();//连接
+        datelist = parseJson.ParseJsontoHistorys();//获取数据
+        for (Historys h: datelist
+        ) {
+            System.out.println(h.toString());
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:   //返回键的id
-                this.finish();
-                return false;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //使用intent接受数据（网络编程使用）
+        Intent intent = getIntent();
+        account = intent.getStringExtra("account");
+
+        //System.out.println("HistoryAccount=" + account);
         initList();
         setContentView(R.layout.activity_history);
         RecyclerView recyclerView = findViewById(R.id.rv_history);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         HistoryAdapter historyAdapter = new HistoryAdapter(HistoryActivity.this,datelist);
         recyclerView.setAdapter(historyAdapter);
         historyAdapter.setOnItemClickListener(new HistoryAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, HistoryAdapter.ViewName viewName, int position) {
-                Intent intent = null;
                 switch (viewName){
                     case ITEM:
                         break;
@@ -80,17 +67,16 @@ public class HistoryActivity extends AppCompatActivity {
                         //进入查看进度界面
                         //test code
                         //Log.println(100,"CHECK_SCHEDULE",position+":查看进度");
-                        intent=new Intent(HistoryActivity.this, Process_Activity.class);
-                        startActivity(intent);
-                        break;
+
                         //insert code
+
+                        break;
                     case EVALUATE:
                         //进入我要评价界面
                         //Log.println(100,"EVALUATE",position+":我要评价");
 
                         //insert code
-                        intent=new Intent(HistoryActivity.this, EvaluateActivity.class);
-                        startActivity(intent);
+
                         break;
                 }
             }

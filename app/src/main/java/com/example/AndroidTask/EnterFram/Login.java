@@ -35,6 +35,7 @@ public class Login extends AppCompatActivity {
     private EditText et_account; //账号输入框
     private EditText et_password; //密码输入框
     private String code;//返回值
+
     //private Map<String,String> Saved_information; //获取保存在XML中的信息
     /*private String Saved_account;
     private String Saved_password;*/
@@ -55,6 +56,8 @@ public class Login extends AppCompatActivity {
         if (account!=null&&password!=null) {
             Toast.makeText(getApplicationContext(),"自动登录成功",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Login.this, EnterMainFram.class);
+            intent.putExtra("account",account);
+            System.out.println("account=" +account);
             startActivity(intent);
             finish();
         }
@@ -173,6 +176,8 @@ public class Login extends AppCompatActivity {
                         e.printStackTrace();
                     }*/
                     intent=new Intent(Login.this, EnterMainFram.class);
+                    intent.putExtra("account",account);
+                    System.out.println("account="+ account);
                     boolean isSaveSuccess = SPSave.saveUserInfo(getApplicationContext(),account,password);
                     if (isSaveSuccess){
                         Toast.makeText(getApplicationContext(),"保存成功",Toast.LENGTH_SHORT).show();

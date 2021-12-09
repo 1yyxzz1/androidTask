@@ -20,6 +20,18 @@ public class News {
     private String publishAccount;
     private String publishTime;
 
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", imageUrL='" + imageUrL + '\'' +
+                ", title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                ", publishAccount='" + publishAccount + '\'' +
+                ", publishTime='" + publishTime + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

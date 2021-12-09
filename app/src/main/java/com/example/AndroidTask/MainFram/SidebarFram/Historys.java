@@ -9,25 +9,41 @@ public class Historys{
     private String imageUrl;
     private String title;//
     private String desc;//
-    private String test;
+    private String account;
     private String address;
     private String category;//pro_type
     private int degree;//
     private String time;//发布日期时间
     private String process;//pro_state
 
-    public Historys(int id, String imageUrl, String title, String desc, String test,
-                    String address, String category, int degree, String time, String process) {
+    public Historys(int id, String imageUrl, String title, String desc, String account, String address,
+                    String category, int degree, String time, String process) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.title = title;
         this.desc = desc;
-        this.test = test;
+        this.account = account;
         this.address = address;
         this.category = category;
         this.degree = degree;
         this.time = time;
         this.process = process;
+    }
+
+    @Override
+    public String toString() {
+        return "Historys{" +
+                "id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", desc='" + desc + '\'' +
+                ", account='" + account + '\'' +
+                ", address='" + address + '\'' +
+                ", category='" + category + '\'' +
+                ", degree=" + degree +
+                ", time='" + time + '\'' +
+                ", process='" + process + '\'' +
+                '}';
     }
 
     public int getId() {
@@ -62,12 +78,12 @@ public class Historys{
         this.desc = desc;
     }
 
-    public String getTest() {
-        return test;
+    public String getAccount() {
+        return account;
     }
 
-    public void setTest(String test) {
-        this.test = test;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getAddress() {

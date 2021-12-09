@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cq_1014_task.R;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -45,6 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
         content=getConnect();
         getNews();
         System.out.println("content:"+content);
+        for(int i = 0;i != 100;i++){
+            news[i] = new News();
+        }
     }
 
     @Override
@@ -249,7 +254,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
                     num=data.length();
 
                     for (int i=0;i<num;i++){
-                        news[i]=new News();
+                        //news[i]=new News();
                         JSONObject object= data.getJSONObject(i);
                         news[i].setImageUrL(object.getString("imageUrl"));
                         news[i].setId(object.getInt("id"));
@@ -261,6 +266,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
 
                         System.out.println("标题："+news[i].getTitle());
                     }
+//                    //System.out.println(content);
+//                    JSONObject jsonObject = new JSONObject(content);
+//                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+//                    //ArrayList<News> Newslist = new ArrayList<News>();
+//                    Gson gson = new Gson();
+//                    for(int i = 0;i != jsonArray.length();i++){
+//                        //news[i] = new News();
+//                        JSONObject js = jsonArray.getJSONObject(i);
+//                        news[i] = gson.fromJson(String.valueOf(js),News.class);
+//                    System.out.println(news[i].toString());
+//                    }
                 }catch (JSONException e){
                     e.printStackTrace();
                 }

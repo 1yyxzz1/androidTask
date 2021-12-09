@@ -43,11 +43,14 @@ public class EnterMainFram extends AppCompatActivity {
     private TextView HISTORY;
     private TextView COLLECTION;
     int ReturnLocation=1;
+    private String account;
 
     private ArrayList<Fragment> fragmentArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        account = intent.getStringExtra("account");
         setContentView(R.layout.main);
         EXIT=(Button) findViewById(R.id.sidebar_exit);
         HISTORY = (TextView) findViewById(R.id.sidebar_history);
@@ -164,6 +167,7 @@ public class EnterMainFram extends AppCompatActivity {
                     break;
                 case R.id.sidebar_history:
                     intent=new Intent(EnterMainFram.this, HistoryActivity.class);
+                    intent.putExtra("account",account);
                     break;
                 default:
             }
