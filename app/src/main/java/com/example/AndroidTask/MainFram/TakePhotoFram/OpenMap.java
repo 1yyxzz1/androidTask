@@ -2,13 +2,11 @@ package com.example.AndroidTask.MainFram.TakePhotoFram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -22,7 +20,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-import com.example.AndroidTask.MainFram.EnterMainFram;
+import com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram;
 import com.example.cq_1014_task.R;
 
 public class OpenMap extends AppCompatActivity {

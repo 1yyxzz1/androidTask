@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.AndroidTask.MainFram.SidebarFram.PageEnabledSlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/enterMain"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram"
+    tools:ignore="MissingConstraints">
+
+
+    <include layout="@layout/sidebar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+       <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager2"
+            android:layout_weight="8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </androidx.viewpager2.widget.ViewPager2>
+        <RadioGroup
+            android:id="@+id/rg"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:drawableTop="@drawable/ic_homepage"
+                android:id="@+id/rb1"
+                android:text="@string/homepage_name"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:drawableTop="@drawable/ic_take_photo"
+                android:id="@+id/rb2"
+                android:text="@string/takephoto_name"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:drawableTop="@drawable/ic_user"
+                android:id="@+id/rb3"
+                android:text="@string/user_information"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+    </LinearLayout>
+</com.example.AndroidTask.MainFram.SidebarFram.PageEnabledSlidingPaneLayout>

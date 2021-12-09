@@ -1,4 +1,4 @@
-package com.example.AndroidTask.MainFram;
+package com.example.AndroidTask.MainFram.SidebarFram;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.AndroidTask.MainFram.MyAdapter;
 import com.example.cq_1014_task.R;
 
 public class HomepageFragment extends Fragment {

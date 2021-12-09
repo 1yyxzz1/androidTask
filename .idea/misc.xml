@@ -11,6 +11,17 @@
         <entry key="..\:/123/Android_Work/app/src/main/res/layout/homepage_fragment.xml" value="0.1" />
         <entry key="..\:/123/Android_Work/app/src/main/res/layout/homepage_fragment_recycleitem.xml" value="0.35104166666666664" />
         <entry key="..\:/123/Android_Work/app/src/main/res/layout/takephoto_fragment.xml" value="0.19635416666666666" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/aaaaaa.xml" value="0.11848341232227488" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/activity_camera.xml" value="0.1453125" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/activity_check_schedule.xml" value="0.1453125" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/activity_login.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/app_main_activity.xml" value="0.1" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/bottom_tab.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/evaluate_history_test2.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/item.xml" value="0.19583333333333333" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/item_timeline2.xml" value="0.1453125" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/layout/mymap.xml" value="0.18125" />
+        <entry key="..\:/AndroidApplication/androidTask/app/src/main/res/menu/menu.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidApplication/cq_1014_task/app/src/main/res/layout/activity_camera.xml" value="0.1296875" />
         <entry key="..\:/AndroidApplication/cq_1014_task/app/src/main/res/layout/activity_login.xml" value="0.1296875" />
         <entry key="..\:/AndroidApplication/cq_1014_task/app/src/main/res/layout/activity_register.xml" value="0.1296875" />
@@ -32,59 +43,8 @@
         <entry key="..\:/AppData/Android/androidTask/app/src/main/res/layout/takephoto_fragment.xml" value="0.1" />
         <entry key="..\:/AppData/Android/androidTask/app/src/main/res/layout/user_fragment.xml" value="0.16666666666666666" />
         <entry key="..\:/AppData/Android/androidTask/app/src/main/res/menu/menu.xml" value="0.22" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/button_circle_shape.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic___.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_____2_.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_back.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_baseline_done_24.xml" value="0.16574074074074074" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_circle_up.xml" value="0.1375" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_circle_up_2.xml" value="0.1375" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_homepage.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_hourglass.xml" value="0.16574074074074074" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_return3.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_return4.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_take_photo.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_time_24.xml" value="0.16574074074074074" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/ic_user.xml" value="0.1421875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/return1_.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/drawable/return2.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_camera.xml" value="0.25" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_check_schedule.xml" value="0.152" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_example.xml" value="0.12135416666666667" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_history.xml" value="0.1" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_login.xml" value="0.1296875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/activity_register.xml" value="0.1296875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/app_main_activity.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/evaluate_history.xml" value="0.16" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/evaluate_history_test.xml" value="0.2" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/evaluate_history_test2.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/homepage_fragment.xml" value="0.4" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/homepage_fragment_recycleitem.xml" value="0.1296875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/item_list.xml" value="0.136" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/item_timeline.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/item_timeline2.xml" value="0.2" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/layout.xml" value="0.1" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/mymap.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/progress_history.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/sidebar.xml" value="0.1" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/sidebar_history_item.xml" value="0.264" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/takephoto_fragment.xml" value="0.1296875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/test_layout.xml" value="0.1" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/toolbar.xml" value="0.26614583333333336" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/layout/user_fragment.xml" value="0.1296875" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/menu/menu.xml" value="0.536" />
-        <entry key="..\:/Users/86137/Desktop/javashijian/Android/androidTask3/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14583333333333334" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.4" />
-      </ProjectState>
-    </option>
-  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

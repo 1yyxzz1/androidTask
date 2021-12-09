@@ -1,8 +1,23 @@
-package com.example.AndroidTask.MainFram;
+package com.example.AndroidTask.MainFram.viewpageFram;
 
+import android.os.Bundle;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.AndroidTask.MainFram.HomepageFram.HomepageFragment;
+import com.example.AndroidTask.MainFram.SidebarFram.PageEnabledSlidingPaneLayout;
+import com.example.AndroidTask.MainFram.TakePhotoFram.TakephotoFragment;
+import com.example.AndroidTask.MainFram.UserFram.UserFragment;
+import com.example.cq_1014_task.R;
+
+import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,45 +25,97 @@ import android.widget.Toast;
 
 import com.example.AndroidTask.EnterFram.Login;
 import com.example.AndroidTask.Database.SPSave;
-import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
 import com.example.AndroidTask.MainFram.SidebarFram.HistoryActivity;
-import com.example.cq_1014_task.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 
 public class EnterMainFram extends AppCompatActivity {
+    ViewPager2 mviewPager2;
+    private RadioGroup rg;
+    private RadioButton rb1,rb2,rb3,rb4;
+    private EnterMainAdapter enterMainAdapter;
+
     private RecyclerView mRvMain;
     private PageEnabledSlidingPaneLayout slidingPaneLayout;
     private Button EXIT;
     private TextView HISTORY;
     private TextView COLLECTION;
     int ReturnLocation=1;
+
+    private ArrayList<Fragment> fragmentArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_main_activity);
+        setContentView(R.layout.main);
         EXIT=(Button) findViewById(R.id.sidebar_exit);
         HISTORY = (TextView) findViewById(R.id.sidebar_history);
         COLLECTION = (TextView) findViewById(R.id.sidebar_collection);
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottomnavigationview);
-        NavController navController= Navigation.findNavController(this,R.id.fragment2);
-        AppBarConfiguration configuration=new AppBarConfiguration.Builder(bottomNavigationView.getMenu()).build();
-        NavigationUI.setupActionBarWithNavController(this,navController,configuration);
-        NavigationUI.setupWithNavController(bottomNavigationView,navController);
 
-        slidingPaneLayout = (PageEnabledSlidingPaneLayout)findViewById(R.id.main);
+        /*viewpage2的方法*/
+        initview();
+        initdata();
+        initadpater();
+        initlistener();
+
+        slidingPaneLayout = (PageEnabledSlidingPaneLayout)findViewById(R.id.enterMain);
         initSlidingPaneLayout();
         setListeners();
     }
+    private void initadpater() {
+        enterMainAdapter=new EnterMainAdapter(this, fragmentArrayList);
+        mviewPager2.setAdapter(enterMainAdapter);
+
+    }
+    private void initdata() {
+        fragmentArrayList.add(new HomepageFragment());
+        fragmentArrayList.add(new TakephotoFragment());
+        fragmentArrayList.add(new UserFragment());
+    }
+
+    private void initview() {
+        mviewPager2=findViewById(R.id.viewpager2);
+        rg=findViewById(R.id.rg);
+        rb1=findViewById(R.id.rb1);
+        rb2=findViewById(R.id.rb2);
+        rb3=findViewById(R.id.rb3);
+    }
+    private void initlistener() {
+        //设置viewpager滑动监听
+        mviewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                if(position==0){
+                    rb1.setChecked(true);
+                }else  if(position==1){
+                    rb2.setChecked(true);
+                }else  if(position==2){
+                    rb3.setChecked(true);
+                }
+            }
+
+        });
+        //点击顶部的时候，切换ViewPager
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //checkedId代表的是选中的rb的id
+                if(rb1.getId()==checkedId){
+                    mviewPager2.setCurrentItem(0);
+                }else if(rb2.getId()==checkedId){
+                    mviewPager2.setCurrentItem(1);
+                }else if(rb3.getId()==checkedId){
+                    mviewPager2.setCurrentItem(2);
+                }else if(rb4.getId()==checkedId){
+                    mviewPager2.setCurrentItem(3);
+                }
+
+
+            }
+        });
+    }
+
     private void setListeners(){
         EnterMainFram.OnClick onClick=new EnterMainFram.OnClick();
         EXIT.setOnClickListener(onClick);
@@ -93,13 +160,14 @@ public class EnterMainFram extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"退出成功",Toast.LENGTH_SHORT).show();
                     SPSave.deleteAll(getApplicationContext());
                     intent=new Intent(EnterMainFram.this, Login.class);
+                    finish();
                     break;
                 case R.id.sidebar_history:
                     intent=new Intent(EnterMainFram.this, HistoryActivity.class);
                     break;
                 default:
             }
-            finish();
+
             startActivity(intent);
         }
     }
@@ -107,5 +175,6 @@ public class EnterMainFram extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
 }

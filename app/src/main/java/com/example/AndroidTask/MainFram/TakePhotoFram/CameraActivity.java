@@ -2,7 +2,6 @@ package com.example.AndroidTask.MainFram.TakePhotoFram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -10,11 +9,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.AndroidTask.MainFram.EnterMainFram;
+import com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram;
 import com.example.cq_1014_task.R;
 
 public class CameraActivity extends AppCompatActivity {
@@ -72,7 +70,7 @@ public class CameraActivity extends AppCompatActivity {
                 Bitmap bitmap = (Bitmap) bundle.get("data");
                 imageView.setImageBitmap(bitmap);
 
-                Intent intent=new Intent(CameraActivity.this,EnterMainFram.class);
+                Intent intent=new Intent(CameraActivity.this, EnterMainFram.class);
 
                 Bundle bundle1=new Bundle();
                 bundle1.putParcelable("bitmap",bitmap);

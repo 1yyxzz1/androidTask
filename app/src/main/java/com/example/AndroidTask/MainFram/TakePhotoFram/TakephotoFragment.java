@@ -2,8 +2,6 @@ package com.example.AndroidTask.MainFram.TakePhotoFram;
 
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -16,16 +14,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.AndroidTask.EnterFram.RegisterActivity;
-import com.example.AndroidTask.MainFram.EnterMainFram;
 import com.example.cq_1014_task.R;
 
 public class TakephotoFragment extends Fragment {

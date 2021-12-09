@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
-import com.example.AndroidTask.MainFram.EnterMainFram;
 import com.example.AndroidTask.MainFram.EvaluateFram.EvaluateActivity;
 import com.example.cq_1014_task.R;
 

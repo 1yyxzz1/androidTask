@@ -22,7 +22,6 @@ public class Process_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //this.setSupportActionBar(toolbar);
         setContentView(R.layout.activity_check_schedule);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -45,13 +45,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.AndroidTask.MainFram.EnterMainFram" android:label="@string/news_name"/>
         <activity android:name="com.example.AndroidTask.EnterFram.RegisterActivity" android:label="@string/register_name"/>
         <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.CameraActivity" android:label="@string/camera_name"/> CameraActivity
         <activity android:name="com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap" android:label="@string/map_name"/>
         <activity android:name="com.example.AndroidTask.MainFram.SidebarFram.HistoryActivity" android:label="历史记录界面"/>
         <activity android:name="com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity" android:label="查看进度" />
         <activity android:name="com.example.AndroidTask.MainFram.EvaluateFram.EvaluateActivity" />
+        <activity android:name="com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram" />
+
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
     </application>
 

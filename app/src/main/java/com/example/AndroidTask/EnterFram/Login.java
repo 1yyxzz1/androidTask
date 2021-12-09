@@ -6,10 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.StrictMode;
-import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,23 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.ErrorRequestCoordinator;
-import com.example.AndroidTask.MainFram.EnterMainFram;
 import com.example.AndroidTask.Database.SPSave;
+import com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram;
 import com.example.cq_1014_task.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.LinkedHashMap;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -68,6 +56,7 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"自动登录成功",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Login.this, EnterMainFram.class);
             startActivity(intent);
+            finish();
         }
 
         //Toast.makeText(getApplicationContext(),account,Toast.LENGTH_SHORT).show();
