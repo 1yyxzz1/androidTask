@@ -13,16 +13,17 @@ import com.example.cq_1014_task.R;
 import com.github.vipulasri.timelineview.TimelineView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ProcessAdapter extends RecyclerView.Adapter<ProcessAdapter.ViewHolder> {
     //List<ProcessBean.Data> processes;
-    List<String> processes;
+    ArrayList<Processes> datalist;
     Context context;
 
-    public ProcessAdapter(List<String> p, Context context){
-        this.processes=p;
+    public ProcessAdapter(ArrayList<Processes> p, Context context){
+        this.datalist=p;
         this.context = context;
     }
 
@@ -42,7 +43,7 @@ public class ProcessAdapter extends RecyclerView.Adapter<ProcessAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return processes.size();
+        return datalist.size();
     }
 
     @Override
@@ -59,32 +60,32 @@ public class ProcessAdapter extends RecyclerView.Adapter<ProcessAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.status.setText(processes.get(position)); //设置状态
-        Date date=new Date();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        holder.time.setText(simpleDateFormat.format(date)); //设置时间
-        //设置图片
-        if (processes.get(position)=="yyy") holder.timelineView.setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.done,null));
+//        holder.status.setText(processes.get(position)); //设置状态
+//        Date date=new Date();
+//        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        holder.time.setText(simpleDateFormat.format(date)); //设置时间
+//        //设置图片
+//        if (processes.get(position)=="yyy") holder.timelineView.setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.done,null));
 
         //下面大概写了咋传参 具体实现根据接口 记得删掉上面的测试
-        //ProcessBean.Data process=processes.get(position);
-        /*holder.status.setText(process.getDesc());
-        Date date=process.getTime();
+        Processes processes = datalist.get(position);
+        holder.status.setText(processes.getDesc());
+        Date date=processes.getTime();
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        holder.time.setText(simpleDateFormat.format(date));*/
+        holder.time.setText(simpleDateFormat.format(date));
 
-        /*if (process.getDesc().equals("已提交")){
+        if (processes.getDesc().equals("已提交")){
             holder.timelineView
                     .setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.submit,null));
-        } else if (process.getDesc().equals("等待处理")){
+        } else if (processes.getDesc().equals("等待处理")){
             holder.timelineView
                     .setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.waiting,null));
-        } else if (process.getDesc().equals("处理中")){
+        } else if (processes.getDesc().equals("处理中")){
             holder.timelineView
                     .setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.dealing,null));
-        } else if (process.getDesc().equals("处理完成")){
+        } else if (processes.getDesc().equals("处理完成")){
             holder.timelineView
                     .setMarker(ResourcesCompat.getDrawable(context.getResources(),R.drawable.done,null));
-        }*/
+        }
     }
 }

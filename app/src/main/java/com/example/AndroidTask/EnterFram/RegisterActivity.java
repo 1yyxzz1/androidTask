@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.AndroidTask.JsonTool.ParseJson;
 import com.example.cq_1014_task.R;
 
 import java.util.Observer;
@@ -75,6 +76,11 @@ public class RegisterActivity extends AppCompatActivity {
         if (!password.equals(passwordAgain)) {
             Toast.makeText(RegisterActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
             return;
+        }
+        else {
+            ParseJson parseJson = new ParseJson("Register",account,password);
+            parseJson.getJsonFromInternet();
+            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
         }
         //UserHttp userHttp = new UserHttp();
         //userHttp.register(account, password);

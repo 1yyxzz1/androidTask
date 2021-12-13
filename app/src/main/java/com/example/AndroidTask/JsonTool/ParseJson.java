@@ -1,8 +1,11 @@
 package com.example.AndroidTask.JsonTool;
 
 
+import com.example.AndroidTask.MainFram.Check_scheduleFram.Processes;
+import com.example.AndroidTask.MainFram.EvaluateFram.Evaluate;
 import com.example.AndroidTask.MainFram.HomepageFram.News;
 import com.example.AndroidTask.MainFram.SidebarFram.Historys;
+import com.example.AndroidTask.MainFram.TakePhotoFram.FeedBack;
 import com.google.gson.Gson;
 
 
@@ -14,7 +17,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -34,8 +39,8 @@ public class ParseJson {
     private String account;
     private String password;
     //    private MultipartFile file;
-//    private FeedBackInfo feedBack;
-//    private EvaluateInfo Evaluate;
+    private FeedBack feedBack;
+    private Evaluate evaluate;
     private int feed_back_id;
 
     //历史记录构造函数
@@ -55,13 +60,14 @@ public class ParseJson {
     public ParseJson(String urlname,int feed_back_id){
         this.URLname = urlname;
         this.feed_back_id = feed_back_id;
+        System.out.println(feed_back_id);
     }
 
     //评价构造函数
-//    public ParseJson(String urlname,EvaluateInfo feedBack){
-//        this.URLname = urlname;
-//        this.feedBack = feedBack;
-//    }
+    public ParseJson(String urlname, Evaluate evaluate){
+        this.URLname = urlname;
+        this.evaluate = evaluate;
+    }
 
     //文件流构造函数
 //    public ParseJson(String urlname,MultipartFile feedBack){
@@ -70,23 +76,49 @@ public class ParseJson {
 //    }
 
     //反馈信息构造函数
-//    public ParseJson(String urlname,FeedBackInfo file){
-//        this.URLname = urlname;
-//        this.file = file;
-//    }
+    public ParseJson(String urlname,FeedBack feedBack){
+        this.URLname = urlname;
+        this.feedBack = feedBack;
+    }
 
+    //post请求方式向服务器提交数据
+    public int postJsonToInternet(){
+        try{
+            String data;
+            Gson gson = new Gson();
+            switch (URLname){
+                case "Evaluate": url = EvaluateURL;data = gson.toJson(evaluate);break;
+                case "FeedBack": url = FeedBackURL;data = gson.toJson(feedBack);break;
+                default:data = "";break;
+            }
+            HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(5000);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            OutputStream os = conn.getOutputStream();
+            os.write(data.getBytes());
 
+            int code = conn.getResponseCode();//获取请求码
+           // System.out.println("评价提交结果,Code="+code);
+            return code;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public void getJsonFromInternet(){
         switch (URLname){
             case "News": url = NewsURL;break;
-            case "Login": url = LoginURL + account + "&password=" + password;break;
-            case "Register": url = RegisterURL + account + "&password=" + password;break;
+            case "Login": url = LoginURL + "?account=" + account + "&password=" + password;break;
+            case "Register": url = RegisterURL + "?account=" + account + "&password=" + password;break;
             // case "Image": url = ImageURL;break;
             // case "FeedBack": url = FeedBackURL;break;
             case "Historys": url = HistorysURL + "?account="+account;break;
-            //  case "Evaluate": url = EvaluateURL;break;
-            case "Process": url = ProcessURL + "?feed_back_id"+feed_back_id;break;
+            case "Processes": url = ProcessURL + "?feed_back_id="+feed_back_id;break;
         }
         try {
             HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
@@ -143,6 +175,26 @@ public class ParseJson {
                 Newslist.add(news);
             }
             return  Newslist;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //获取进度列表
+    public ArrayList<Processes> ParseJsonToProcesses(){
+        try {
+            System.out.println(content);
+            JSONObject jsonObject = new JSONObject(content);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            ArrayList<Processes> Processlist = new ArrayList<Processes>();
+            Gson gson = new Gson();
+            for(int i = 0;i != jsonArray.length();i++){
+                JSONObject js = jsonArray.getJSONObject(i);
+                Processes process = gson.fromJson(String.valueOf(js),Processes.class);
+                Processlist.add(process);
+            }
+            return  Processlist;
         } catch (JSONException e) {
             e.printStackTrace();
         }

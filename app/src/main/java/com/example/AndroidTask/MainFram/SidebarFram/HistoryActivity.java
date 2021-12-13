@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.AndroidTask.Database.SPSave;
 import com.example.AndroidTask.EnterFram.Login;
 import com.example.AndroidTask.JsonTool.ParseJson;
+import com.example.AndroidTask.MainFram.Check_scheduleFram.Process_Activity;
+import com.example.AndroidTask.MainFram.EvaluateFram.EvaluateActivity;
 import com.example.cq_1014_task.R;
 
 import java.util.ArrayList;
@@ -60,6 +62,7 @@ public class HistoryActivity extends AppCompatActivity {
         historyAdapter.setOnItemClickListener(new HistoryAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, HistoryAdapter.ViewName viewName, int position) {
+                Intent intent = null;
                 switch (viewName){
                     case ITEM:
                         break;
@@ -67,14 +70,19 @@ public class HistoryActivity extends AppCompatActivity {
                         //进入查看进度界面
                         //test code
                         //Log.println(100,"CHECK_SCHEDULE",position+":查看进度");
-
+                        intent=new Intent(HistoryActivity.this, Process_Activity.class);
+                        intent.putExtra("feedBackId",datelist.get(position).getId());//传输反馈信息id
+                        System.out.println("历史界面传输数据feedBackId："+datelist.get(position).getId());
+                        startActivity(intent);
                         //insert code
 
                         break;
                     case EVALUATE:
                         //进入我要评价界面
                         //Log.println(100,"EVALUATE",position+":我要评价");
-
+                        intent=new Intent(HistoryActivity.this, EvaluateActivity.class);
+                        intent.putExtra("feedBackId",datelist.get(position).getId());//传输反馈信息id
+                        startActivity(intent);
                         //insert code
 
                         break;
