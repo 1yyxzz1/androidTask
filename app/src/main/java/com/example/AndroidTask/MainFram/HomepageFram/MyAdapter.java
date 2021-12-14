@@ -36,10 +36,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
     private int num=0;
     //private News[] news=new News[100];
     private ArrayList<News> datalist = new ArrayList<News>();
+    private ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     private Bitmap bmp;
     private MyAdapter.LinearViewHolder mainholder;
 
-    public MyAdapter(Context context, ArrayList<News> datalist,OnItemClickListener listener){
+    public MyAdapter(Context context, ArrayList<News> datalist,ArrayList<Bitmap> bitmaps,OnItemClickListener listener){
         this.mContext=context;
         this.mListener=listener;
 //        content=getConnect();
@@ -52,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
              ) {
             System.out.println(n.toString());
         }
-
+        this.bitmaps = bitmaps;
 
     }
 
@@ -68,17 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
         holder.title.setText(datalist.get(position).getTitle());
         holder.time.setText(datalist.get(position).getPublishTime());//设置时间
         holder.content.setText(datalist.get(position).getDesc());//设置内容
-//        bmp = BitmapFactory.decodeFile(datalist.get(position).getImageUrL());
-//        Matrix matrix=new Matrix();
-//        matrix.setScale(0.2f,0.25f);
-//        bmp=Bitmap.createBitmap(bmp,0,0,bmp.getWidth(),bmp.getHeight(),matrix,true);
-//        holder.imag.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                holder.imag.setImageBitmap(bmp);
-//            }
-//        });
-        //Glide.with(holder.imag).asBitmap().load(datalist.get(position).getImageUrL()).into(holder.imag);
+        holder.imag.setImageBitmap(bitmaps.get(position));
         //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
 //        Date date=null;
 //        try {
@@ -93,7 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
 
         //Bitmap bmp=getBitmap(news[position].getImageUrL());
         //holder.imag.setImageBitmap(bmp);
-        setImage(holder,datalist.get(position).getImageUrL());//设置图片
+        //setImage(holder,datalist.get(position).getImageUrL());//设置图片
 
         //Uri imguri = Uri.parse((String) news[position].getImageUrL());
         //holder.imag.setImageURI(imguri);

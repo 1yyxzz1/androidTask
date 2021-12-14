@@ -2,6 +2,9 @@ package com.example.AndroidTask.MainFram.HomepageFram;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,9 @@ import android.widget.Toast;
 import com.example.AndroidTask.JsonTool.ParseJson;
 import com.example.cq_1014_task.R;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class HomepageFragment extends Fragment {
@@ -24,6 +31,7 @@ public class HomepageFragment extends Fragment {
     private HomepageViewModel mViewModel;
     private RecyclerView mRvMain;
     private ArrayList<News> datalist = new ArrayList<News>();
+    private ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     public static HomepageFragment newInstance() {
         return new HomepageFragment();
     }
@@ -55,6 +63,32 @@ public class HomepageFragment extends Fragment {
 //             ) {
 //            System.out.println(news.toString());
 //        }
+        setImage();
+    }
+
+    public void setImage(){
+        try{
+            for (int i = 0;i != datalist.size();i++){
+                URL url=new URL(datalist.get(i).getImageUrL());
+                Log.d("url", "== imageUrl: " + url);
+                //InputStream inputStream = (InputStream) url.getContent();
+                //final Drawable drawable = Drawable.createFromStream(inputStream, "123.jpg");
+                URLConnection conn = url.openConnection();
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                BitmapFactory.Options options=new BitmapFactory.Options();
+                options.inSampleSize = 10;
+                Bitmap bmp = BitmapFactory.decodeStream(is);//bitmap压缩，使其可以被载入
+                Matrix matrix=new Matrix();
+                matrix.setScale(0.2f,0.25f);
+                bmp= Bitmap.createBitmap(bmp,0,0,bmp.getWidth(),bmp.getHeight(),matrix,true);
+                bitmaps.add(bmp);
+                is.close();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -71,7 +105,7 @@ public class HomepageFragment extends Fragment {
             }
         }));*/
         if (HomepageViewModel.myAdapter==null)
-            HomepageViewModel.myAdapter=new MyAdapter(getActivity(), datalist,new MyAdapter.OnItemClickListener() {
+            HomepageViewModel.myAdapter=new MyAdapter(getActivity(), datalist,bitmaps,new MyAdapter.OnItemClickListener() {
                 @Override
                 public void onClick(int pos) {
                     Toast.makeText(getActivity(),"click:"+pos,Toast.LENGTH_SHORT).show();
