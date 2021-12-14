@@ -13,12 +13,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cq_1014_task.R;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -36,21 +32,28 @@ import javax.net.ssl.HttpsURLConnection;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> {
     private Context mContext;
     private OnItemClickListener mListener;
-    private String content;
+    //private String content;
     private int num=0;
-    private News[] news=new News[100];
+    //private News[] news=new News[100];
+    private ArrayList<News> datalist = new ArrayList<News>();
     private Bitmap bmp;
     private MyAdapter.LinearViewHolder mainholder;
 
-    public MyAdapter(Context context, OnItemClickListener listener){
+    public MyAdapter(Context context, ArrayList<News> datalist,OnItemClickListener listener){
         this.mContext=context;
         this.mListener=listener;
-        content=getConnect();
-        getNews();
-        System.out.println("content:"+content);
-        for(int i = 0;i != 100;i++){
-            news[i] = new News();
+//        content=getConnect();
+//        getNews();
+//        for(int i = 0;i != 100;i++){
+//            news[i] = new News();
+//        }
+        this.datalist = datalist;
+        for (News n: this.datalist
+             ) {
+            System.out.println(n.toString());
         }
+
+
     }
 
     @Override
@@ -62,21 +65,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
     @Override
     public void onBindViewHolder(MyAdapter.LinearViewHolder holder, final int position) {
         mainholder=holder;
-        holder.title.setText(news[position].getTitle());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
-        Date date=null;
-        try {
-            date = simpleDateFormat.parse(news[position].getPublishTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        holder.title.setText(datalist.get(position).getTitle());
+        holder.time.setText(datalist.get(position).getPublishTime());//设置时间
+        holder.content.setText(datalist.get(position).getDesc());//设置内容
+//        bmp = BitmapFactory.decodeFile(datalist.get(position).getImageUrL());
+//        Matrix matrix=new Matrix();
+//        matrix.setScale(0.2f,0.25f);
+//        bmp=Bitmap.createBitmap(bmp,0,0,bmp.getWidth(),bmp.getHeight(),matrix,true);
+//        holder.imag.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                holder.imag.setImageBitmap(bmp);
+//            }
+//        });
+        //Glide.with(holder.imag).asBitmap().load(datalist.get(position).getImageUrL()).into(holder.imag);
+        //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+//        Date date=null;
+//        try {
+//            date = simpleDateFormat.parse(datalist.get(position).getPublishTime());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
-        holder.time.setText(news[position].getPublishTime());//设置时间
-        holder.content.setText(news[position].getDesc());//设置内容
+
+
+
 
         //Bitmap bmp=getBitmap(news[position].getImageUrL());
         //holder.imag.setImageBitmap(bmp);
-        setImage(holder,news[position].getImageUrL());//设置图片
+        setImage(holder,datalist.get(position).getImageUrL());//设置图片
 
         //Uri imguri = Uri.parse((String) news[position].getImageUrL());
         //holder.imag.setImageURI(imguri);
@@ -157,7 +174,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
 
     @Override
     public int getItemCount() {
-        return num;
+        return datalist.size();
     }
 
 
@@ -247,44 +264,44 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.LinearViewHolder> 
         return bitmap;
     }*/
 
-    private void getNews(){
-        new Thread(){
-            @Override
-            public void run(){
-                content=getConnect();
-                try{
-                    JSONObject result_json=new JSONObject(content);
-                    JSONArray data= result_json.getJSONArray("data");
-                    num=data.length();
-
-                    for (int i=0;i<num;i++){
-                        //news[i]=new News();
-                        JSONObject object= data.getJSONObject(i);
-                        news[i].setImageUrL(object.getString("imageUrl"));
-                        news[i].setId(object.getInt("id"));
-                        news[i].setTitle(object.getString("title"));
-                        news[i].setDesc(object.getString("desc"));
-                        news[i].setPublishAccount(object.getString("publishAccount"));
-                        news[i].setPublishTime(object.getString("publishTime"));
-                        //Bitmap bmp=getBitmap(news[i].getImageUrL());
-
-                        System.out.println("标题："+news[i].getTitle());
-                    }
-//                    //System.out.println(content);
-//                    JSONObject jsonObject = new JSONObject(content);
-//                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-//                    //ArrayList<News> Newslist = new ArrayList<News>();
-//                    Gson gson = new Gson();
-//                    for(int i = 0;i != jsonArray.length();i++){
-//                        //news[i] = new News();
-//                        JSONObject js = jsonArray.getJSONObject(i);
-//                        news[i] = gson.fromJson(String.valueOf(js),News.class);
-//                    System.out.println(news[i].toString());
+//    private void getNews(){
+//        new Thread(){
+//            @Override
+//            public void run(){
+//                content=getConnect();
+//                try{
+//                    JSONObject result_json=new JSONObject(content);
+//                    JSONArray data= result_json.getJSONArray("data");
+//                    num=data.length();
+//
+//                    for (int i=0;i<num;i++){
+//                        //news[i]=new News();
+//                        JSONObject object= data.getJSONObject(i);
+//                        news[i].setImageUrL(object.getString("imageUrl"));
+//                        news[i].setId(object.getInt("id"));
+//                        news[i].setTitle(object.getString("title"));
+//                        news[i].setDesc(object.getString("desc"));
+//                        news[i].setPublishAccount(object.getString("publishAccount"));
+//                        news[i].setPublishTime(object.getString("publishTime"));
+//                        //Bitmap bmp=getBitmap(news[i].getImageUrL());
+//
+//                        System.out.println("标题："+news[i].getTitle());
 //                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
+////                    //System.out.println(content);
+////                    JSONObject jsonObject = new JSONObject(content);
+////                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+////                    //ArrayList<News> Newslist = new ArrayList<News>();
+////                    Gson gson = new Gson();
+////                    for(int i = 0;i != jsonArray.length();i++){
+////                        //news[i] = new News();
+////                        JSONObject js = jsonArray.getJSONObject(i);
+////                        news[i] = gson.fromJson(String.valueOf(js),News.class);
+////                    System.out.println(news[i].toString());
+////                    }
+//                }catch (JSONException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+//    }
 }

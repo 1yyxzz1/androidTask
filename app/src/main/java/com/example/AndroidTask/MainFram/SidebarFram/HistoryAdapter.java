@@ -23,7 +23,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ItemHold
     public HistoryAdapter(Context context, ArrayList<Historys> list) {
         this.context = context;
         dataList = list;
-        System.out.println("content:"+context);
     }
 
     @Override

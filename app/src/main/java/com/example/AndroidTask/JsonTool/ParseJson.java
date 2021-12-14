@@ -38,7 +38,7 @@ public class ParseJson {
     private String content;
     private String account;
     private String password;
-    //    private MultipartFile file;
+    //private MultipartFile file;
     private FeedBack feedBack;
     private Evaluate evaluate;
     private int feed_back_id;
@@ -67,6 +67,11 @@ public class ParseJson {
     public ParseJson(String urlname, Evaluate evaluate){
         this.URLname = urlname;
         this.evaluate = evaluate;
+    }
+
+    //新闻列表构造函数
+    public ParseJson(String urlname){
+        this.URLname = urlname;
     }
 
     //文件流构造函数
@@ -125,7 +130,7 @@ public class ParseJson {
             connection.setConnectTimeout(5000);
             connection.setRequestMethod("GET");
             int code = connection.getResponseCode();
-            System.out.println("code = " + code);
+            System.out.println("code = " + code+"数据流获取成功");
             if(connection.getResponseCode()==HttpURLConnection.HTTP_OK){
                 InputStream inputStream = connection.getInputStream();//获取流
                 BufferedReader in=new BufferedReader(new InputStreamReader(inputStream));
@@ -144,13 +149,14 @@ public class ParseJson {
     //获取历史记录
     public ArrayList<Historys> ParseJsontoHistorys(){
         try {
-            System.out.println(content);
+            System.out.println("Content="+content);
             JSONObject jsonObject = new JSONObject(content);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             ArrayList<Historys> historyslist = new ArrayList<Historys>();
             Gson gson = new Gson();
             for(int i = 0;i != jsonArray.length();i++){
                 JSONObject js = jsonArray.getJSONObject(i);
+                //System.out.println(String.valueOf(js));
                 Historys historys = gson.fromJson(String.valueOf(js),Historys.class);
                 historyslist.add(historys);
             }
@@ -164,13 +170,15 @@ public class ParseJson {
     //获取新闻列表
     public ArrayList<News> ParseJsonToNews(){
         try {
-            System.out.println(content);
+            System.out.println("新闻列表：Content="+content);
             JSONObject jsonObject = new JSONObject(content);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
             ArrayList<News> Newslist = new ArrayList<News>();
             Gson gson = new Gson();
+            System.out.println("JsonArray长度："+jsonArray.length());
             for(int i = 0;i != jsonArray.length();i++){
                 JSONObject js = jsonArray.getJSONObject(i);
+                System.out.println(String.valueOf(js));
                 News news = gson.fromJson(String.valueOf(js),News.class);
                 Newslist.add(news);
             }

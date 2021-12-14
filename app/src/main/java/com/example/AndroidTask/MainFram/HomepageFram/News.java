@@ -1,20 +1,8 @@
 package com.example.AndroidTask.MainFram.HomepageFram;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.PhantomReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Date;
-
-import kotlin.jvm.internal.PropertyReference0Impl;
-
 public class News {
     private int id;
-    private String imageUrL;
+    private String imageUrl;
     private String title;
     private String desc;
     private String publishAccount;
@@ -24,7 +12,7 @@ public class News {
     public String toString() {
         return "News{" +
                 "id=" + id +
-                ", imageUrL='" + imageUrL + '\'' +
+                ", imageUrL='" + imageUrl + '\'' +
                 ", title='" + title + '\'' +
                 ", desc='" + desc + '\'' +
                 ", publishAccount='" + publishAccount + '\'' +
@@ -41,11 +29,11 @@ public class News {
     }
 
     public String getImageUrL() {
-        return imageUrL;
+        return imageUrl;
     }
 
     public void setImageUrL(String imageUrL) {
-        this.imageUrL = imageUrL;
+        this.imageUrl = imageUrL;
     }
 
     public String getTitle() {
