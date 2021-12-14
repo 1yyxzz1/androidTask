@@ -2,7 +2,9 @@ package com.example.AndroidTask.MainFram.TakePhotoFram;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,28 +16,54 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.request.RequestOptions;
+import com.example.AndroidTask.JsonTool.ParseJson;
 import com.example.cq_1014_task.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Date;
 
 public class TakephotoFragment extends Fragment {
     private TakephotoViewModel mViewModel;
-    private ImageButton openCamera;
-    private RadioButton rb_safe,rb_clean,rb_order,rb_important,rb_normal;
-    private RadioGroup rg_content,rg_important;
-    private TextView t_tag_question;
-    private TextView t_tag_important;
-    private ImageButton open_map;
-    private TextView myLocation = null;
-    private ImageView imageView;
 
+    /*控件*/
+    private EditText text_title,text_desc;
+    private ImageButton openCamera,open_map;
+    private RadioButton rb_safe,rb_clean,rb_order,rb_important,rb_normal;
+    private Button btn_login;
+    private RadioGroup rg_content,rg_important;
+    private TextView t_tag_question,t_tag_important,myLocation = null;
+
+    /*上传信息*/
+    FeedBack feedBack;//用于上传
+    private String imageUrl; //图片url
+    private String title;   //标题
+    private String desc;  //描述
+    private String address; //地址，定位
+    private String category; //类别：安全隐患、卫生问题、秩序问题
+    private int degree;  //级别：0-一般，  1-重要
+    private Date time;  //时间: 2021-11-06T13:14:25.909+00:00
+    private String process; //当前状态："已提交"
+    private String account;
+
+    /*返回信息*/
     private final int ReturnLocation=1;//返回地址定位
     private final int OPEN_RESULT = 2; // 打开相机
     private final int PICK_RESULT = 3; // 查看相册
+
+    public TakephotoFragment(String account) {
+        this.account=account;
+    }
 
     private void setListeners(){
         OnClick onClick=new OnClick();
@@ -44,6 +72,7 @@ public class TakephotoFragment extends Fragment {
         rb_normal.setOnClickListener(onClick);
         rb_important.setOnClickListener(onClick);
         rb_order.setOnClickListener(onClick);
+        btn_login.setOnClickListener(onClick);
     }
 
     private class OnClick implements View.OnClickListener{
@@ -52,35 +81,41 @@ public class TakephotoFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.rb_safe:
+                    category="安全隐患";
                     t_tag_question.setText("问题类型是：安全隐患");
                     break;
                 case R.id.rb_clean:
+                    category="卫生问题";
                     t_tag_question.setText("问题类型是：卫生问题");
                     break;
                 case R.id.rb_order:
+                    category="秩序问题";
                     t_tag_question.setText("问题类型是：秩序问题");
                     break;
                 case R.id.rb_important:
+                    degree=1;
                     t_tag_important.setText("问题重要性是：重要");
                     break;
                 case R.id.rb_normal:
+                    degree=0;
                     t_tag_important.setText("问题重要性是：一般");
                     break;
+                case R.id.btn_login:
+                    submit();
+                    break;
+
             }
         }
     }
 
-    public ImageButton getImageButton(){
-        return openCamera;
-    }
-
     public static TakephotoFragment newInstance() {
-        return new TakephotoFragment();
+        return new TakephotoFragment(newInstance().account);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         //避免切换Fragment 的时候重绘UI 。失去数据
         if (TakephotoViewModel.view == null) {
             //System.out.println(1);
@@ -102,6 +137,7 @@ public class TakephotoFragment extends Fragment {
         if (resultCode == ReturnLocation) {
             Bundle bundle = data.getExtras();
             String str= bundle.getString("returnLocation");
+            address=str;
             myLocation.setText("当前位置:"+str);
         }
         else if (resultCode == OPEN_RESULT) {
@@ -119,23 +155,7 @@ public class TakephotoFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(TakephotoViewModel.class);// TODO: Use the ViewModel
-
-        rb_safe=(RadioButton) getView().findViewById(R.id.rb_safe);
-        openCamera = (ImageButton) getView().findViewById(R.id.img_camera);
-        rb_clean=(RadioButton) getView().findViewById(R.id.rb_clean);
-        rb_normal=(RadioButton) getView().findViewById(R.id.rb_normal);
-        rb_safe=(RadioButton) getView().findViewById(R.id.rb_safe);
-        rb_order=(RadioButton) getView().findViewById(R.id.rb_order);
-        rb_important=(RadioButton) getView().findViewById(R.id.rb_important);
-        rg_content=(RadioGroup) getView().findViewById(R.id.rg_content);
-        rg_important=(RadioGroup) getView().findViewById(R.id.rg_important);
-        open_map=(ImageButton) getView().findViewById(R.id.openMap);
-        myLocation=(TextView) getView().findViewById(R.id.textView);
-
-        t_tag_question=(TextView) getView().findViewById(R.id.t_tag_question);
-        t_tag_important=(TextView) getView().findViewById(R.id.t_tag_important);
-        openCamera.setImageDrawable(getResources().getDrawable(R.drawable.add));
+        initComponent();//初始化部件---findbyview
         //拍照
         openCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +195,45 @@ public class TakephotoFragment extends Fragment {
         }
         setListeners();*/
 
+    }
+    private void initComponent(){
+        mViewModel = ViewModelProviders.of(this).get(TakephotoViewModel.class);// TODO: Use the ViewModel
+
+        text_title=getView().findViewById(R.id.e_title);
+        text_desc=getView().findViewById(R.id.e_desc);
+        rb_safe=getView().findViewById(R.id.rb_safe);
+        openCamera = getView().findViewById(R.id.img_camera);
+        rb_clean=getView().findViewById(R.id.rb_clean);
+        rb_normal=getView().findViewById(R.id.rb_normal);
+        rb_safe=getView().findViewById(R.id.rb_safe);
+        rb_order=getView().findViewById(R.id.rb_order);
+        rb_important= getView().findViewById(R.id.rb_important);
+        rg_content=getView().findViewById(R.id.rg_content);
+        rg_important=getView().findViewById(R.id.rg_important);
+        open_map=getView().findViewById(R.id.openMap);
+        myLocation= getView().findViewById(R.id.textView);
+        btn_login=getView().findViewById(R.id.btn_login);
+
+
+        t_tag_question=getView().findViewById(R.id.t_tag_question);
+        t_tag_important=getView().findViewById(R.id.t_tag_important);
+        openCamera.setImageDrawable(getResources().getDrawable(R.drawable.add));
+        setListeners();
+    }
+    private void submit(){
+        ParseJson parseJson = new ParseJson("Historys",feedBack);//工具初始化
+        parseJson.getJsonFromInternet();//连接
+        title=text_title.getText().toString().trim();;
+        desc=text_desc.getText().toString().trim();;
+        process="已提交";
+        imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
+        time=new Date(System.currentTimeMillis());
+        feedBack=new FeedBack(imageUrl,title,desc,account,address,category,degree,time,process);
+        Toast.makeText(getActivity(), feedBack.toString(), Toast.LENGTH_SHORT).show();
+        int result=parseJson.postJsonToInternet();
+        if (result==200)
+            Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
+        else Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
     }
 
 

@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.AndroidTask.Database.SPSave;
+import com.example.AndroidTask.MainFram.TakePhotoFram.TakephotoViewModel;
 import com.example.AndroidTask.MainFram.viewpageFram.EnterMainFram;
 import com.example.cq_1014_task.R;
 
@@ -57,6 +59,8 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"自动登录成功",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Login.this, EnterMainFram.class);
             intent.putExtra("account",account);
+
+
             System.out.println("account=" +account);
             startActivity(intent);
             finish();
@@ -177,6 +181,8 @@ public class Login extends AppCompatActivity {
                     }*/
                     intent=new Intent(Login.this, EnterMainFram.class);
                     intent.putExtra("account",account);
+
+
                     System.out.println("account="+ account);
                     boolean isSaveSuccess = SPSave.saveUserInfo(getApplicationContext(),account,password);
                     if (isSaveSuccess){

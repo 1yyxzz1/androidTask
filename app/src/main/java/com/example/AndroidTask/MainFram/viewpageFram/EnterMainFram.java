@@ -6,12 +6,16 @@ import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.AndroidTask.MainFram.HomepageFram.HomepageFragment;
 import com.example.AndroidTask.MainFram.SidebarFram.PageEnabledSlidingPaneLayout;
+import com.example.AndroidTask.MainFram.TakePhotoFram.OpenMap;
 import com.example.AndroidTask.MainFram.TakePhotoFram.TakephotoFragment;
+import com.example.AndroidTask.MainFram.TakePhotoFram.TakephotoViewModel;
 import com.example.AndroidTask.MainFram.UserFram.UserFragment;
 import com.example.cq_1014_task.R;
 
@@ -45,6 +49,7 @@ public class EnterMainFram extends AppCompatActivity {
     int ReturnLocation=1;
     private String account;
 
+
     private ArrayList<Fragment> fragmentArrayList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,7 @@ public class EnterMainFram extends AppCompatActivity {
     }
     private void initdata() {
         fragmentArrayList.add(new HomepageFragment());
-        fragmentArrayList.add(new TakephotoFragment());
+        fragmentArrayList.add(new TakephotoFragment(account));
         fragmentArrayList.add(new UserFragment());
     }
 

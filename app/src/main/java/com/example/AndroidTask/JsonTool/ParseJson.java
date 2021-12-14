@@ -1,12 +1,16 @@
 package com.example.AndroidTask.JsonTool;
 
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.AndroidTask.MainFram.Check_scheduleFram.Processes;
 import com.example.AndroidTask.MainFram.EvaluateFram.Evaluate;
 import com.example.AndroidTask.MainFram.HomepageFram.News;
 import com.example.AndroidTask.MainFram.SidebarFram.Historys;
 import com.example.AndroidTask.MainFram.TakePhotoFram.FeedBack;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.json.JSONArray;
@@ -14,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +27,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ParseJson {
     private static String NewsURL = "http://49.235.134.191:8080/news/get";//新闻列表
@@ -85,12 +94,11 @@ public class ParseJson {
         this.URLname = urlname;
         this.feedBack = feedBack;
     }
-
     //post请求方式向服务器提交数据
     public int postJsonToInternet(){
         try{
             String data;
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX").create();
             switch (URLname){
                 case "Evaluate": url = EvaluateURL;data = gson.toJson(evaluate);break;
                 case "FeedBack": url = FeedBackURL;data = gson.toJson(feedBack);break;

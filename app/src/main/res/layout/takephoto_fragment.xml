@@ -6,7 +6,7 @@
 
 
     <EditText
-        android:id="@+id/e_id"
+        android:id="@+id/e_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="请输入标题"
@@ -26,7 +26,7 @@
         />
 
     <EditText
-        android:id="@+id/e_text"
+        android:id="@+id/e_desc"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="请输入问题描述"
@@ -101,7 +101,7 @@
         android:text="位置信息：" />
 
     <Button
-        android:id="@+id/btn_denglu"
+        android:id="@+id/btn_login"
         android:layout_width="161dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_circle_shape"
