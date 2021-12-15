@@ -1,9 +1,12 @@
 package com.example.AndroidTask.MainFram.TakePhotoFram;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -105,7 +108,8 @@ public class TakephotoFragment extends Fragment {
                     t_tag_important.setText("问题重要性是：一般");
                     break;
                 case R.id.btn_login:
-                    submit();
+                    if(submit())
+                    Toast.makeText(getActivity(),"上传成功",Toast.LENGTH_LONG).show();
                     break;
 
             }
@@ -226,17 +230,22 @@ public class TakephotoFragment extends Fragment {
         openCamera.setImageDrawable(getResources().getDrawable(R.drawable.add));
         setListeners();
     }
-    private void submit(){
+    private Boolean submit(){
         try {
         BitmapDrawable bd = (BitmapDrawable)img_camera.getDrawable();//drawable转bitmapdrawable
         Bitmap bitmap = bd.getBitmap();//获取bitmap
         //bitmap转file
-        File file = saveFile(bitmap,"photo");
+//        File file = saveFile(bitmap,"photo");
+            File file = new File(new String());
         FileInputStream fileInputStream = new FileInputStream(file);
         MultipartFile multipartFile =new MockMultipartFile("file", file.getName(), "text/plain", IOUtils.toByteArray(fileInputStream));
         //System.out.println("背景图片："+file.getPath());
         //imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
-
+        ParseJson postFile=new ParseJson("Image",multipartFile);
+        int postResult=postFile.postJsonToInternet();
+            if (postResult==200)
+                Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
 
         ParseJson parseJson = new ParseJson("FeedBack",feedBack);//工具初始化
         title=text_title.getText().toString().trim();;
@@ -254,33 +263,46 @@ public class TakephotoFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return true;
     }
 
     //bitmap转file
-    public File saveFile(Bitmap bm, String fileName){//将Bitmap类型的图片转化成file类型，便于上传到服务器
+ //   public File saveFile(Bitmap bm, String fileName){//将Bitmap类型的图片转化成file类型，便于上传到服务器
+//        File myCaptureFile =null;
+//        try {
+//            String path = Environment.getExternalStorageDirectory()+"";
+//            File dirFile = new File(path);
+//            if(!dirFile.exists()){
+//                dirFile.mkdir();
+//            }
+//            myCaptureFile = new File(path +"/" +fileName);//
+//            BufferedOutputStream bos = null;
+//            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+//            bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+//            bos.flush();
+//            bos.close();
+//
+//            return myCaptureFile;
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(myCaptureFile);
+//        return myCaptureFile;
 
-        try {
-            String path = Environment.getExternalStorageDirectory() + "/Ask";
-            File dirFile = new File(path);
-            if(!dirFile.exists()){
-                dirFile.mkdir();
-            }
-            File myCaptureFile = new File(path + fileName);
-            BufferedOutputStream bos = null;
-            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
-            bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-            bos.flush();
-            bos.close();
-            return myCaptureFile;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        return null;
-    }
+//        File file=new File(filepath);//将要保存图片的路径
+//        try {
+//            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+//            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+//            bos.flush();
+//            bos.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return file;
+  //  }
 
 
 }

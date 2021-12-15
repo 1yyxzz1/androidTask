@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +51,7 @@ public class ParseJson {
     private String content;
     private String account;
     private String password;
-    //private MultipartFile file;
+    private MultipartFile file;
     private FeedBack feedBack;
     private Evaluate evaluate;
     private int feed_back_id;
@@ -97,6 +98,13 @@ public class ParseJson {
         this.URLname = urlname;
         this.feedBack = feedBack;
     }
+
+    //评价构造函数
+    public ParseJson(String urlname, MultipartFile mf){
+        this.URLname = urlname;
+        this.file = mf;
+    }
+
     //获取图片路径
     public String getImagePath(){
         String path=null;
@@ -113,6 +121,7 @@ public class ParseJson {
             switch (URLname){
                 case "Evaluate": url = EvaluateURL;data = gson.toJson(evaluate);break;
                 case "FeedBack": url = FeedBackURL;data = gson.toJson(feedBack);break;
+                case "Image":url=ImageURL;data=gson.toJson(file);break;
                 default:data = "";break;
             }
             HttpURLConnection conn = (HttpURLConnection)new URL(url).openConnection();
