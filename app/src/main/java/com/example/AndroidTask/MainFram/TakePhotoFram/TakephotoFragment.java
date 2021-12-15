@@ -1,44 +1,48 @@
 package com.example.AndroidTask.MainFram.TakePhotoFram;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.AndroidTask.JsonTool.ParseJson;
 import com.example.cq_1014_task.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.android.gms.common.util.IOUtils;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 public class TakephotoFragment extends Fragment {
     private TakephotoViewModel mViewModel;
 
     /*控件*/
     private EditText text_title,text_desc;
-    private ImageButton openCamera,open_map;
+    private ImageButton openCamera,open_map,img_camera;
     private RadioButton rb_safe,rb_clean,rb_order,rb_important,rb_normal;
     private Button btn_login;
     private RadioGroup rg_content,rg_important;
@@ -215,7 +219,7 @@ public class TakephotoFragment extends Fragment {
         open_map=getView().findViewById(R.id.openMap);
         myLocation= getView().findViewById(R.id.textView);
         btn_login=getView().findViewById(R.id.btn_login);
-
+        img_camera=getView().findViewById(R.id.img_camera);
 
         t_tag_question=getView().findViewById(R.id.t_tag_question);
         t_tag_important=getView().findViewById(R.id.t_tag_important);
@@ -223,11 +227,21 @@ public class TakephotoFragment extends Fragment {
         setListeners();
     }
     private void submit(){
+        try {
+        BitmapDrawable bd = (BitmapDrawable)img_camera.getDrawable();//drawable转bitmapdrawable
+        Bitmap bitmap = bd.getBitmap();//获取bitmap
+        //bitmap转file
+        File file = saveFile(bitmap,"photo");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        MultipartFile multipartFile =new MockMultipartFile("file", file.getName(), "text/plain", IOUtils.toByteArray(fileInputStream));
+        //System.out.println("背景图片："+file.getPath());
+        //imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
+
+
         ParseJson parseJson = new ParseJson("FeedBack",feedBack);//工具初始化
         title=text_title.getText().toString().trim();;
         desc=text_desc.getText().toString().trim();;
         process="已提交";
-        //imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
         time=new Date(System.currentTimeMillis());
         feedBack=new FeedBack(imageUrl,title,desc,account,address,category,degree,time,process);
         Toast.makeText(getActivity(), feedBack.toString(), Toast.LENGTH_SHORT).show();
@@ -235,6 +249,37 @@ public class TakephotoFragment extends Fragment {
         if (result==200)
             Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
         else Toast.makeText(getActivity(), "上传失败", Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //bitmap转file
+    public File saveFile(Bitmap bm, String fileName){//将Bitmap类型的图片转化成file类型，便于上传到服务器
+
+        try {
+            String path = Environment.getExternalStorageDirectory() + "/Ask";
+            File dirFile = new File(path);
+            if(!dirFile.exists()){
+                dirFile.mkdir();
+            }
+            File myCaptureFile = new File(path + fileName);
+            BufferedOutputStream bos = null;
+            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+            bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+            bos.flush();
+            bos.close();
+            return myCaptureFile;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 

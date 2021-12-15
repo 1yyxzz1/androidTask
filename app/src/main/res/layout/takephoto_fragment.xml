@@ -38,6 +38,7 @@
         android:layout_height="152dp"
         android:background="@drawable/add"
         android:scaleType="fitXY" />
+
     <RadioGroup
         android:id="@+id/rg_content"
         android:layout_width="match_parent"
