@@ -1,7 +1,10 @@
 package com.example.AndroidTask.JsonTool;
 
 
+import android.database.Cursor;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.CursorAdapter;
 import android.widget.Toast;
 
 import com.example.AndroidTask.MainFram.Check_scheduleFram.Processes;
@@ -93,6 +96,14 @@ public class ParseJson {
     public ParseJson(String urlname,FeedBack feedBack){
         this.URLname = urlname;
         this.feedBack = feedBack;
+    }
+    //获取图片路径
+    public String getImagePath(){
+        String path=null;
+        String[] fpColumn={MediaStore.MediaColumns.DATA};
+
+        /*Cursor cursor=get*/
+        return "http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
     }
     //post请求方式向服务器提交数据
     public int postJsonToInternet(){

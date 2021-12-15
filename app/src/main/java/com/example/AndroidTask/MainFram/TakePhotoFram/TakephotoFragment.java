@@ -148,6 +148,8 @@ public class TakephotoFragment extends Fragment {
         else if (resultCode == PICK_RESULT) {
             // 表示选择图片库的图片结果
             Uri uri = data.getData();
+            ParseJson parseJson = new ParseJson("ImageURL");//工具初始化
+            imageUrl=parseJson.getImagePath();
             openCamera.setImageURI(uri);
         }
     }
@@ -221,12 +223,11 @@ public class TakephotoFragment extends Fragment {
         setListeners();
     }
     private void submit(){
-        ParseJson parseJson = new ParseJson("Historys",feedBack);//工具初始化
-        parseJson.getJsonFromInternet();//连接
+        ParseJson parseJson = new ParseJson("FeedBack",feedBack);//工具初始化
         title=text_title.getText().toString().trim();;
         desc=text_desc.getText().toString().trim();;
         process="已提交";
-        imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
+        //imageUrl="http://49.235.134.191:8080/images/2021-10-29/761f7daddd8a4f61b04f3780dbf18a27.jpg";
         time=new Date(System.currentTimeMillis());
         feedBack=new FeedBack(imageUrl,title,desc,account,address,category,degree,time,process);
         Toast.makeText(getActivity(), feedBack.toString(), Toast.LENGTH_SHORT).show();
